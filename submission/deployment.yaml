@@ -38,7 +38,7 @@ spec:
         volumeMounts:
         - name: sqlite-storage
           mountPath: /app/data
-          livenessProbe:
+        livenessProbe:
           httpGet:
             path: /health
             port: 9000
