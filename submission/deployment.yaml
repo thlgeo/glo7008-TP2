@@ -37,7 +37,7 @@ spec:
         - containerPort: 9000
         volumeMounts:
         - name: sqlite-storage
-          mountPath: /app/data
+          mountPath: /usr/db
         livenessProbe:
           httpGet:
             path: /health
@@ -80,6 +80,11 @@ spec:
         image: theolenglart/api-gateway
         ports:
         - containerPort: 8080
+        env:
+        - name: LOGIC_API_URL
+          value: "http://logic-api-service:5000"
+        - name: FEEDBACK_API_URL
+          value: "http://feedback-api-service:9000"
         livenessProbe:
           httpGet:
             path: /health
