@@ -34,14 +34,17 @@ spec:
       - name: feedback-api
         image: theolenglart/feedback-api
         ports:
-        - containerPort: 9000
+        - containerPort: 5000
+        env:
+        - name: DATABASE_DIR
+          value: "/usr/db"
         volumeMounts:
         - name: sqlite-storage
           mountPath: /usr/db
         livenessProbe:
           httpGet:
             path: /health
-            port: 9000
+            port: 5000
           initialDelaySeconds: 15
           periodSeconds: 20
 
@@ -56,7 +59,7 @@ spec:
   ports:
     - protocol: TCP
       port: 9000
-      targetPort: 9000
+      targetPort: 5000
 
 ---
 apiVersion: apps/v1
