@@ -192,9 +192,9 @@ kind: Ingress
 metadata:
   name: sentence-analyzer-ingress
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:
@@ -205,16 +205,17 @@ spec:
             name: frontend-service
             port:
               number: 80
-      - path: /api
-        pathType: Prefix
+
+      - path: /api(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: api-gateway-service
             port:
               number: 8080
 
-      - path: /admin
-        pathType: Prefix
+      - path: /admin(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: feedback-api-service
