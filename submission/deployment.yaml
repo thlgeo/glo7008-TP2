@@ -210,7 +210,7 @@ spec:
               number: 80
 
       - path: /api/(.*)
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: api-gateway-service
@@ -218,7 +218,7 @@ spec:
               number: 8080
 
       - path: /admin/(.*)
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: feedback-api-service
