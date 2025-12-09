@@ -194,20 +194,13 @@ kind: Ingress
 metadata:
   name: sentence-analyzer-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: "/$1"
 spec:
   ingressClassName: nginx
   rules:
   - http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: frontend-service
-            port:
-              number: 80
-              
+      paths:              
       - path: /api/(.*)
         pathType: ImplementationSpecific
         backend:
@@ -223,3 +216,20 @@ spec:
             name: feedback-api-service
             port:
               number: 9000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80

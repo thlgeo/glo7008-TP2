@@ -22,3 +22,6 @@ kubectl apply -f submission/deployment.yaml
 ```
 
 ### Commentaires généraux:
+
+Nous avons remarqué qu'il y a un problème de cache lorsque nous accédons à l'application sur un navigateur internet. Pour palier à ce problème, nous trouvons qu'il est préférable de tester notre application avec la commande `curl`.  
+En effet, après avoir appeler l'url `http://localhost/`, lorsque nous appelons `http://localhost/admin/feedback` le navigateur affiche la page d'accueil. Ce problème ne se produit pas avec des requêtes effectuées en ligne de commande.
