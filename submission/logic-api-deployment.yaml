@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logic-api-deployment
+  labels:
+    app: logic-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: logic-api
+  template:
+    metadata:
+      labels:
+        app: logic-api
+    spec:
+      containers:
+      - name: logic-api
+        image: theolenglart/logic-api
+        ports:
+        - containerPort: 5000
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 15
+          periodSeconds: 20

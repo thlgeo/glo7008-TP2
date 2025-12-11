@@ -18,7 +18,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main
 
 Pour lancer notre deployement, il faut exécuter la commande suivante à la racine du projet :
 ```bash
-kubectl apply -f submission/deployment.yaml
+kubectl apply -f submission
 ```
 
 ### Commentaires généraux:
