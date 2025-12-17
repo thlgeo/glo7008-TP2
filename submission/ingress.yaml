@@ -1,15 +1,22 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: api-ingress
+  name: sentence-analyzer-ingress
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: "/$1"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - sentence-analyzer.local
+      secretName: sentence-analyzer-tls
   rules:
-  - http:
-      paths:              
+  - host: sentence-analyzer.local
+    http:
+      paths:
+      # API Gateway
       - path: /api/(.*)
         pathType: ImplementationSpecific
         backend:
@@ -17,7 +24,7 @@ spec:
             name: api-gateway-service
             port:
               number: 8080
-
+      # Admin feedback
       - path: /admin/(feedback)
         pathType: ImplementationSpecific
         backend:
@@ -25,26 +32,7 @@ spec:
             name: feedback-api-service
             port:
               number: 9000
-
-      # Exemple d'un autre endpoint admin
-      # - path: /admin/(polarity)
-      #   pathType: ImplementationSpecific
-      #   backend:
-      #     service:
-      #       name: logic-api-service
-      #       port:
-      #         number: 5000
-
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: frontend-ingress
-spec:
-  ingressClassName: nginx
-  rules:
-  - http:
-      paths:
+      # Frontend
       - path: /
         pathType: Prefix
         backend:
@@ -52,3 +40,5 @@ spec:
             name: frontend-service
             port:
               number: 80
+
+
