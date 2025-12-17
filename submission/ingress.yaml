@@ -11,6 +11,7 @@ spec:
   tls:
     - hosts:
         - localhost
+      secretName: sentence-analyzer-tls
   rules:
   - host: localhost
     http:
