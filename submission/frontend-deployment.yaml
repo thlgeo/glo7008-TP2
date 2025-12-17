@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: theolenglart/frontend
+        image: theolenglart/frontend:submission
         ports:
         - containerPort: 80
         livenessProbe:

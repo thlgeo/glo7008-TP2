@@ -20,7 +20,7 @@ spec:
           claimName: feedback-api-pvc
       containers:
       - name: feedback-api
-        image: theolenglart/feedback-api
+        image: theolenglart/feedback-api:submission
         ports:
         - containerPort: 80
         env:

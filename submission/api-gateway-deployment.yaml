@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: api-gateway
-        image: theolenglart/api-gateway
+        image: theolenglart/api-gateway:submission
         ports:
         - containerPort: 8080
         env:

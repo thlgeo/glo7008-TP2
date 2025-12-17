@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: logic-api
-        image: theolenglart/logic-api
+        image: theolenglart/logic-api:submission
         ports:
         - containerPort: 5000
         livenessProbe:
