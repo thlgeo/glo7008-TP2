@@ -10,10 +10,9 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - sentence-analyzer.local
-      secretName: sentence-analyzer-tls
+        - localhost
   rules:
-  - host: sentence-analyzer.local
+  - host: localhost
     http:
       paths:
       # API Gateway
@@ -33,8 +32,8 @@ spec:
             port:
               number: 9000
       # Frontend
-      - path: /
-        pathType: Prefix
+      - path: /(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: frontend-service
