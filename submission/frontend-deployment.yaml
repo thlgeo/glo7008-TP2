@@ -19,3 +19,9 @@ spec:
         image: theolenglart/frontend
         ports:
         - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /health 
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 20
