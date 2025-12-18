@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consul
+  namespace: observability
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consul
+  template:
+    metadata:
+      labels:
+        app: consul
+    spec:
+      containers:
+        - name: consul
+          image: hashicorp/consul:1.17
+          args:
+            - "agent"
+            - "-config-file=/consul/config/consul.hcl"
+            - "-bind=$(POD_IP)"
+            - "-data-dir=/consul/data"
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          ports:
+            - containerPort: 8500
+            - containerPort: 8600
+            - containerPort: 8300
+          volumeMounts:
+            - name: consul-config
+              mountPath: /consul/config/consul.hcl
+              subPath: consul.hcl
+              readOnly: true
+            - name: consul-data
+              mountPath: /consul/data
+      volumes:
+        - name: consul-config
+          configMap:
+            name: consul-config
+        - name: consul-data
+          emptyDir: {}
+
