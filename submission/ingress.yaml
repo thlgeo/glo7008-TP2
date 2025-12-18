@@ -32,6 +32,7 @@ spec:
             name: feedback-api-service
             port:
               number: 9000
+
       # Frontend
       - path: /(.*)
         pathType: ImplementationSpecific
@@ -41,4 +42,32 @@ spec:
             port:
               number: 80
 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prometheus-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: localhost
+      http:
+        paths:
+          - path: /prometheus
+            pathType: Prefix
+            backend:
+              service:
+                name: prometheus
+                port:
+                  number: 9090
+          - path: /loki
+            pathType: Prefix
+            backend:
+              service:
+                name: loki-service
+                port:
+                  number: 3100
 

@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: loki
-  namespace: observability
 spec:
   replicas: 1
   selector:
@@ -22,7 +21,7 @@ spec:
             - containerPort: 3100
           volumeMounts:
             - name: config
-              mountPath: /etc/loki/local-config.yaml
+              mountPath: /etc/loki/config/local-config.yaml
               subPath: local-config.yaml
             - name: loki-storage
               mountPath: /tmp/loki
