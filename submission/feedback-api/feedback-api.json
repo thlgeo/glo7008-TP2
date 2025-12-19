@@ -1,0 +1,11 @@
+{
+  "Name": "feedback-api",
+  "ID": "feedback-api-1",
+  "Port": 80,
+  "Address": "feedback-api-service",
+  "Check": {
+    "HTTP": "http://feedback-api-service:80/health",
+    "Interval": "10s",
+    "Timeout": "1s"
+  }
+}

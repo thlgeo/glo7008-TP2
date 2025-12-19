@@ -1,0 +1,10 @@
+{
+  "ID": "frontend-service",
+  "Name": "frontend-service",
+  "Address": "frontend-service",
+  "Port": 80,
+  "Check": {
+    "HTTP": "http://frontend-service/health",
+    "Interval": "10s"
+  }
+}

@@ -17,8 +17,18 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main
 
 Pour lancer notre deployement, il faut exécuter la commande suivante à la racine du projet :
 ```bash
-kubectl apply -f submission
+kubectl apply -f submission --recursive
 ```
+
+Afin d'accéder à l'UI de Consul-connect, il faut effectuer un port forwarding tel que :
+```bash
+kubectl port-forward svc/consul-service 8500:8500
+```
+Puis il faut entrer cette URL dans votre navigateur web préféré : `http://localhost:8500/`
+
+Pour accéder à l'UI de prometheus, ça se fait grâce à la route */prometheus* et pour loki */loki*.
+
+Enfin, nous avons modifier l'image dans le dockerfile de api-gateway par `eclipse-temurin:8u472-b08-jre-alpine-3.22`, car l'ancienne image était indisponible. Nous avons aussi modifier le dockerfile de logic-api, car il détenait lui aussi un package non disponible dans la version original donné dans le TP.
 
 ### Commentaires généraux:
 

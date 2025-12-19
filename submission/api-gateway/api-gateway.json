@@ -1,0 +1,12 @@
+{
+  "ID": "api-gateway",
+  "Name": "api-gateway",
+  "Address": "api-gateway-service",
+  "Port": 8080,
+  "Checks": [
+    {
+      "http": "http://api-gateway-service:8080/health",
+      "interval": "10s"
+    }
+  ]
+}
